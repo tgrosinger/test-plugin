@@ -88,3 +88,48 @@ If you have multiple URLs, you can also do:
 ## API Documentation
 
 See https://docs.obsidian.md
+
+## Relative link & image rewrite test
+
+This section exercises every relative-target format the community directory rewrites.
+Images should resolve to `raw.githubusercontent.com/.../HEAD/...`; links should resolve to
+`github.com/tgrosinger/test-plugin/blob/HEAD/...`.
+
+### Relative images (→ raw)
+
+- Plain relative: ![Logo](images/logo.svg)
+- Dot-slash relative: ![Icon](./images/icon.svg)
+- Root-relative: ![Logo root-relative](/images/logo.svg)
+- Angle-bracketed with a space: ![Wide screenshot](<./images/wide screenshot.svg>)
+- With a title: ![Logo with title](images/logo.svg "Plugin logo")
+- Reference-style: ![Diagram][diagram]
+- HTML `<img>` (double-quoted, extra attrs): <img src="images/logo.svg" width="200" alt="HTML logo">
+- HTML `<img>` (single-quoted): <img src='images/icon.svg' height="48">
+- A `github.com/blob` image URL (should become `raw`): ![Blob image](https://github.com/tgrosinger/test-plugin/blob/HEAD/assets/obsidian-logo-gradient.svg)
+
+### Relative links (→ blob)
+
+- Plain relative to a doc: [Usage guide](docs/usage.md)
+- Dot-slash relative: [Contributing](./docs/CONTRIBUTING.md)
+- Root-relative: [License](/LICENSE)
+- With a title: [Setup](docs/setup.md "Setup guide")
+- Reference-style: [FAQ][faq]
+- Nested linked image (both parts rewrite): [![Logo links to usage](images/logo.svg)](docs/usage.md)
+- HTML `<a>`: <a href="docs/usage.md">Usage (HTML link)</a>
+
+### Controls — these must NOT change
+
+- In-page anchor: [Jump to top](#obsidian-sample-plugin)
+- Absolute URL: [Obsidian](https://obsidian.md)
+- Autolink: <https://obsidian.md>
+- `mailto:` link: [Email me](mailto:test@example.com)
+- Inside inline code: `![x](images/logo.svg)` and `[y](docs/usage.md)`
+- Inside a fenced code block:
+
+```md
+![fenced image](images/logo.svg)
+[fenced link](docs/usage.md)
+```
+
+[diagram]: docs/diagram.svg
+[faq]: docs/faq.md
